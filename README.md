@@ -13,8 +13,8 @@ It details the transition from traditional "post-mortem" analysis (learning afte
 * **Fault Tree Analysis (FTA):** Decomposition of system failures in multi-modal sensor environments.
 * **V-Model Integration:** Traceability from Safety Goals to Software Requirements.
 
-## 📦 Zenodo Data Archive
-* **Safety Case Documentation:** [DOI Pending - Link your Zenodo upload here]
+## 📦 Zenodo Safety Archive
+* **ISO 26262 Safety Framework:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18824297.svg)](https://doi.org/10.5281/zenodo.18824297)
 
 ## 📝 Citation
 If you use this framework in your safety research, please cite:
