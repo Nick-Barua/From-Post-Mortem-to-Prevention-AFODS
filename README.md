@@ -1,96 +1,21 @@
-# From Post-Mortem to Prevention: Redefining "Invisible" Pedestrians
+# From Post-Mortem to Prevention: The AFODS Safety Framework (ISO 26262)
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![ISO 26262](https://img.shields.io/badge/Standard-ISO_26262-red)](https://www.iso.org/standard/43464.html)
-[![AI-Powered](https://img.shields.io/badge/AI-Multi--Modal-green)](#technical-architecture)
-[![DOI](https://img.shields.io/badge/DOI-10.2139%2Fssrn.6305618-blue)](https://doi.org/10.2139/ssrn.6305618)
+[![ISO 26262](https://img.shields.io/badge/Standard-ISO%2026262-blue)](https://www.iso.org/standard/68383.html)
+[![ASIL-D](https://img.shields.io/badge/Safety_Level-ASIL--D-red)](https://www.iso.org/standard/68383.html)
 
-> **Author:** Dr. Nick Barua | **Published:** January 2026 | **DOI:** [10.2139/ssrn.6305618](https://doi.org/10.2139/ssrn.6305618)
+## 📋 Project Overview
+This repository hosts the **Functional Safety (FuSa)** framework for the Advanced Falling Object Detection System (AFODS). While the sensor fusion repository handles the "vision," this repository handles the **logic of prevention**. 
 
-This repository contains the conceptual framework and technical architecture for the **Advanced Falling Object Detection System (AFODS)**. The project addresses a critical "classification gap" in current ADAS: the inability of standard monocular architectures to detect fallen or low-profile pedestrians, which currently yields a True Positive Rate (TPR) as low as 21.4% at night.
+It details the transition from traditional "post-mortem" analysis (learning after an injury) to "real-time prevention" (detecting a fall and reacting before impact).
 
----
+### 🛡️ Key Features
+* **ASIL-D Compliance:** Analysis of safety goals and hazardous event mitigation.
+* **Fault Tree Analysis (FTA):** Decomposition of system failures in multi-modal sensor environments.
+* **V-Model Integration:** Traceability from Safety Goals to Software Requirements.
 
-## 📌 Executive Summary
-
-Pedestrians in non-upright postures—those who have fallen due to medical emergencies, intoxication, or primary collisions—represent a significant yet underserved demographic in automotive safety research. Forensic database analyses demonstrate that prostrate road users are disproportionately implicated in hit-and-run incidents. By integrating **ISO 26262 functional safety standards** and **Multi-Modal AI**, this research demonstrates that detection accuracy for prone individuals can be raised to **98.2% TPR**.
-
----
-
-## 🛠 Technical Architecture (AFODS)
-
-AFODS integrates four layers to satisfy the redundancy and explainability requirements of **ASIL C/D**:
-
-- **Spatial Detection:** Utilizes **YOLOv7-Tiny**, achieving a **mAP@0.5 of 91.3%** for prone-person detection.
-- **Predictive Kinematics:** An **RNN with Kalman-filter** state estimation that generates alerts **0.3–0.8 s** before ground contact.
-- **Acoustic Verification:** **MFCC-based classification** distinguishes the acoustic signature of a fall from road noise, reducing false positives.
-- **Explainability:** **SHapley Additive explanations (SHAP)** provide a forensic audit trail admissible in post-incident reconstruction.
-
----
-
-## 📊 Performance Benchmarks
-
-AFODS demonstrates superior performance across various environmental conditions compared to baseline monocular systems:
-
-| Condition | TPR (%) | FPR (%) | mAP@0.5 (%) | Latency (ms) |
-| :--- | :---: | :---: | :---: | :---: |
-| **Daytime, Clear** | 98.2 | 1.8 | 91.3 | 38 |
-| **Night, Dry Road** | 95.6 | 3.1 | 88.7 | 42 |
-| **Night, Rain** | 89.4 | 5.2 | 83.1 | 51 |
-| *Baseline (Monocular, Night)* | *21.4* | *N/A* | *N/A* | *N/A* |
-
----
-
-## ⚖️ Functional Safety (ISO 26262)
-
-The detection of fallen pedestrians is a critical safety goal under ISO 26262. The risk assessment for this scenario maps to **ASIL C-D** due to the combination of:
-
-- **Severity (S3):** Life-threatening or fatal injuries.
-- **Exposure (E3):** Significant occurrence in urban and night environments.
-- **Controllability (C0):** Near-zero ability for a driver to avoid the hazard once it is within the classification gap.
-
----
-
-## 🗺 Roadmap / Future Work
-
-- [ ] LiDAR sensor integration for enhanced depth perception
-- [ ] Edge deployment optimization for embedded automotive hardware
-- [ ] Expansion of training dataset with diverse forensic scenarios
-- [ ] Real-world validation trials with OEM partners
-- [ ] Peer-reviewed journal submission
-
----
-
-## 📂 Related Repositories
-
-- **[sensor-fusion-fall-detection](https://github.com/Nick-Barua/sensor-fusion-fall-detection)** – Core implementation of multi-modal sensor fusion for human fall detection.
-- **[AFODS-Operational-Sequence](https://github.com/Nick-Barua/AFODS-Operational-Sequence)** – Detailed data processing pipelines for the AFODS architecture.
-
----
-
-## 👤 About the Author
-
-This research was conducted by **Dr. Nick Barua**, published in January 2026. For inquiries, visit the [SSRN paper](https://doi.org/10.2139/ssrn.6305618) or connect via GitHub [@Nick-Barua](https://github.com/Nick-Barua).
-
----
+## 📦 Zenodo Data Archive
+* **Safety Case Documentation:** [DOI Pending - Link your Zenodo upload here]
 
 ## 📝 Citation
-
-If you use this research or architecture in your work, please cite the original paper:
-```bibtex
-@article{barua2026postmortem,
-  title={From Post-Mortem to Prevention: Redefining "Invisible" Pedestrians through ISO 26262 and Multi-Modal AI},
-  author={Barua, Nick},
-  journal={SSRN Working Paper},
-  month={January},
-  year={2026},
-  doi={10.2139/ssrn.6305618},
-  publisher={AN Holdings Co.}
-}
-```
-
----
-
-## 📜 License
-
-This project is licensed under the **Apache 2.0 License** — see the [LICENSE](LICENSE) file for details.
+If you use this framework in your safety research, please cite:
+> Barua, N., & Hitosugi, M. (2025). From Post-Mortem to Prevention: A Multi-Modal Sensor Fusion System for Real-Time Human Fall Detection. *Vehicles*, 7(4), 149. https://doi.org/10.3390/vehicles7040149
