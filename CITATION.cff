@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this safety framework, please cite it as below."
+authors:
+- family-names: "Barua"
+  given-names: "Nick"
+  orcid: "https://orcid.org/0000-0003-4641-0112"
+- family-names: "Hitosugi"
+  given-names: "Masahito"
+title: "From Post-Mortem to Prevention: ISO 26262 Safety Framework for AFODS"
+version: 1.0.0
+doi: 10.5281/zenodo.XXXXX  # We will update this after you upload to Zenodo
+date-released: 2026-03-01
+url: "https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS"
