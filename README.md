@@ -1,7 +1,8 @@
 # From Post-Mortem to Prevention: Redefining ‘Invisible’ Pedestrians 🛡️
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18824034.svg)](https://doi.org/10.5281/zenodo.18824034)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18824297.svg)](https://doi.org/10.5281/zenodo.18824297)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 ### **Project Overview**
 This repository hosts the **ISO 26262 Safety Framework** and technical implementation for the 2026 research on detecting pedestrians lying on the road. While traditional ADAS systems yield a True Positive Rate (TPR) of only **21.4%** at night for non-upright pedestrians, the AFODS framework achieves **95.6–98.2% TPR** in simulation.
