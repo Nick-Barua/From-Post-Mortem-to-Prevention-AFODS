@@ -1,6 +1,7 @@
 # **AFODS: Advanced Falling Object Detection System** 🛡️
 **[Archival Concept DOI: 10.5281/zenodo.20035268]**
-
+# AFODS: Advanced Falling Object Detection System 🛡️
+![Graphical Abstract](Figures/GA.png)
 ### **Project Overview**
 This repository hosts the **ISO 26262 Safety Framework** and technical implementation for the 2026 research: *"A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis"*. 
 
