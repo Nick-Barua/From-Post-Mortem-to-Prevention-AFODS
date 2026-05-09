@@ -20,9 +20,9 @@ Standard Advanced Driver-Assistance Systems (ADAS) yield a True Positive Rate (T
 
 ### **🔢 Mathematical Foundation**
 The repository implements the three-stage injury-risk model:
-1. **Kinematics (Eq 1):** $v_{impact} = \max(0, v_0 - a \cdot (t_{avail} - t_d))$ [cite: 75-78].
-2. **Biomechanics (Eq 2):** $HIC = k \cdot v_{impact}^{2.5}$ (where $k \approx 4.8$)[cite: 82, 86, 88].
-3. **Clinical Risk (Eq 3):** $P(AIS \geq 5) = \frac{1}{1 + \exp(-\alpha + \beta \cdot \ln HIC)}$ [cite: 91-93].
+1. **Kinematics (Eq 1):** $v_{impact} = \max(0, v_0 - a \cdot (t_{avail} - t_d)).
+2. **Biomechanics (Eq 2):** $HIC = k \cdot v_{impact}^{2.5}$ (where $k \approx 4.8$).
+3. **Clinical Risk (Eq 3):** $P(AIS \geq 5) = \frac{1}{1 + \exp(-\alpha + \beta \cdot \ln HIC)}$ .
    * **Parameters (Adult 50th-percentile male): α = -17.72, β = 2.32**
 
 ### **📦 Technical Assets (v1.2.0)**
