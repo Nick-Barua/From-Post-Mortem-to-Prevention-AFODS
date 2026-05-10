@@ -109,7 +109,7 @@ All scripts, parameters, and random seeds archived at:
 
 ## 🗺 Translational Validation Roadmap
 
-![Validation Pipeline](Figure_2_AFODS_ Translational_ Validation_ Pipeline.png.png)
+![Validation Pipeline](Figure_2_Translational_Pipeline.png)
 
 | Phase | Stage | Status |
 |---|---|---|
