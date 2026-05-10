@@ -45,7 +45,7 @@ Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxic
 
 ## 🏗 System Architecture
 
-![AFODS Architecture](Figure_1_Architecture_png.png)
+![AFODS Architecture](Figure_1_Architecture.png.png)
 
 *LWIR thermal (42.3% SHAP) + NIR silhouette (31.1%) + MFCC acoustic (14.8%) + RNN trajectory (11.8%) → AEB actuation + forensic audit log + V2X broadcast.*
 
@@ -61,6 +61,36 @@ Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxic
 
 The three-stage model translates detection latency into clinical outcome:
 
+Stage 1:  v_impact = max(0, v₀ − a · (t_avail − t_d))    [kinematic braking]
+Stage 2:  HIC = k · v_impact^2.5    k ≈ 4.8 (THUMS-calibrated, prone posture)
+Stage 3:  P(AIS≥5) = 1 / (1 + exp(−(α + β · ln(HIC))))  α=−17.72, β=2.32
+
+Monte Carlo uncertainty propagation (N = 100,000; ±10% k, ±0.5 m/s² braking, ±15% latency) confirms all results are robust across the full parameter uncertainty range.
+
+**Figure S1 — Monte Carlo P(AIS ≥ 5) distributions across all four detection scenarios:**
+
+![Monte Carlo Uncertainty Propagation](Fig-S1.jpg)
+
+**Figure S2 — Tornado sensitivity plot (one-way sensitivity of P(AIS ≥ 5) to model inputs):**
+
+![Tornado Sensitivity Plot](Fig-S2.jpg)
+
+---
+
+## 🗂 Repository Structure
+
+AFODS/
+├── README.md
+├── LICENSE
+├── CITATION.cff
+├── AFODS_manuscript.docx
+├── AFODS_Supplementary_Analysis.ipynb
+├── GA.png
+├── Figure_1_Architecture.png.png
+├── Figure_2_AFODS_ Translational_ Validation_ Pipeline.png.png
+├── Fig-S1.jpg
+└── Fig-S2.jpg
+
 ---
 
 ## 🚀 Reproducing the Analysis
@@ -69,7 +99,7 @@ The three-stage model translates detection latency into clinical outcome:
 git clone https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS.git
 cd From-Post-Mortem-to-Prevention-AFODS
 pip install numpy scipy matplotlib pandas jupyter
-jupyter notebook notebooks/AFODS_Supplementary_Analysis.ipynb
+jupyter notebook AFODS_Supplementary_Analysis.ipynb
 ```
 
 All scripts, parameters, and random seeds archived at:
@@ -79,7 +109,7 @@ All scripts, parameters, and random seeds archived at:
 
 ## 🗺 Translational Validation Roadmap
 
-![Validation Pipeline](Figure_2_AFODS__Translational__Validation__Pipeline_png.png)
+![Validation Pipeline](Figure_2_AFODS_ Translational_ Validation_ Pipeline.png.png)
 
 | Phase | Stage | Status |
 |---|---|---|
@@ -118,6 +148,7 @@ All scripts, parameters, and random seeds archived at:
 ```
 
 ---
+
 ## 🔗 Related Work
 
 - **Barua & Hitosugi (2025)** — AFODS detection performance (320 simulation trials): [Advanced Multi-Modal Sensor Fusion System for Detecting Falling Humans: Quantitative Evaluation for Enhanced Vehicle Safety](https://www.mdpi.com/2624-8921/7/4/149)
@@ -135,8 +166,8 @@ Released under the [MIT License](LICENSE).
 
 ## 📬 Contact
 
-**Nick Barua** — s.nick.barua@gmail.com
-**Masahito Hitosugi** — hitosugi@belle.shiga-med.ac.jp
+**Nick Barua** — s.nick.barua@gmail.com  
+**Masahito Hitosugi** — hitosugi@belle.shiga-med.ac.jp  
 Department of Legal Medicine, Shiga University of Medical Science, Japan
 
 ---
