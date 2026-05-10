@@ -8,6 +8,27 @@ authors:
     given-names: "Masahito"
 title: "A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis"
 version: 1.2.0
-doi: 10.5281/zenodo.20035269
+doi: 10.5281/zenodo.20035268
 date-released: 2026-05-06
 url: "https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS"
+license: MIT
+keywords:
+  - pedestrian detection
+  - ADAS
+  - ISO 26262
+  - ASIL D
+  - Head Injury Criterion
+  - multi-modal sensor fusion
+  - forensic biomechanics
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Barua"
+      given-names: "Nick"
+    - family-names: "Hitosugi"
+      given-names: "Masahito"
+  title: "A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis"
+  journal: "Vehicles"
+  publisher: "MDPI"
+  year: 2026
+  notes: "Under review"
