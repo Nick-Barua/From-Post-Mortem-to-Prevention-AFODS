@@ -60,3 +60,85 @@ Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxic
 ## 🔬 Injury Risk Model
 
 The three-stage model translates detection latency into clinical outcome:
+
+---
+
+## 🚀 Reproducing the Analysis
+
+```bash
+git clone https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS.git
+cd From-Post-Mortem-to-Prevention-AFODS
+pip install numpy scipy matplotlib pandas jupyter
+jupyter notebook notebooks/AFODS_Supplementary_Analysis.ipynb
+```
+
+All scripts, parameters, and random seeds archived at:
+**[https://doi.org/10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20035268)**
+
+---
+
+## 🗺 Translational Validation Roadmap
+
+![Validation Pipeline](Figure_2_AFODS__Translational__Validation__Pipeline_png.png)
+
+| Phase | Stage | Status |
+|---|---|---|
+| 1 | Simulation & Algorithm (present work) | ✅ Complete |
+| 2 | Hardware-in-the-Loop (automotive-grade embedded, 38–55 ms) | 🔲 Planned |
+| 3 | Proving-Ground ATD Validation (biofidelic, instrumented) | 🔲 Planned |
+| 4 | Prospective Field Validation (domain shift & FPR quantification) | 🔲 Planned |
+| 5 | Regulatory Integration (prone pedestrian AEB protocol amendment) | 🔲 Planned |
+
+---
+
+## ⚖️ ISO 26262 Safety Classification
+
+| Scenario | Severity | Exposure | Controllability | ASIL |
+|---|---|---|---|---|
+| Urban road, night | S3 | E3 | C3 | **D** |
+| Urban road, daytime | S3 | E3 | C2 | C |
+| High-speed road, night | S3 | E2 | C3 | C |
+| Post-primary collision | S3 | E3 | C3 | **D** |
+
+---
+
+## 📄 Citation
+
+```bibtex
+@article{barua2026afods,
+  title   = {A Multi-Modal AI System for Detecting Pedestrians Lying on the Road:
+             Simulation-Based Safety and Injury Risk Analysis},
+  author  = {Barua, Nick and Hitosugi, Masahito},
+  journal = {Vehicles},
+  publisher = {MDPI},
+  year    = {2026},
+  note    = {Under review},
+  doi     = {10.5281/zenodo.20035268}
+}
+```
+
+---
+## 🔗 Related Work
+
+- **Barua & Hitosugi (2025)** — AFODS detection performance (320 simulation trials): [Advanced Multi-Modal Sensor Fusion System for Detecting Falling Humans: Quantitative Evaluation for Enhanced Vehicle Safety](https://www.mdpi.com/2624-8921/7/4/149)
+- **Barua & Hitosugi (2026)** — Physics-grounded kinematic reconstruction: *Sensors, MDPI — Under Review*
+
+---
+
+## 📜 License & Patent
+
+Released under the [MIT License](LICENSE).
+
+**Patent:** Japanese Patent Application No. 2025-167440 (filed 3 October 2025).
+
+---
+
+## 📬 Contact
+
+**Nick Barua** — s.nick.barua@gmail.com
+**Masahito Hitosugi** — hitosugi@belle.shiga-med.ac.jp
+Department of Legal Medicine, Shiga University of Medical Science, Japan
+
+---
+
+*No external funding. No human participants. Simulation-based study using pre-existing anonymised forensic database data.*
