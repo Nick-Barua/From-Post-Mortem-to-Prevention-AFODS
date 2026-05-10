@@ -1,44 +1,62 @@
-# **AFODS: Advanced Falling Object Detection System** 🛡️
-**[Archival Concept DOI: 10.5281/zenodo.20035268]**
+# 🚨 AFODS — Advanced Falling Object Detection System
 
-![Graphical Abstract](/GA.png)
+**Multi-Modal AI for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Reduction**
 
-**[Archival Concept DOI: 10.5281/zenodo.20035268]**
+[![Paper](https://img.shields.io/badge/Paper-MDPI%20Vehicles-blue?style=flat-square)](https://www.mdpi.com/journal/vehicles)
+[![Zenodo](https://img.shields.io/badge/Data-Zenodo%2010.5281%2Fzenodo.20035268-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20035268)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![ISO 26262](https://img.shields.io/badge/Safety-ISO%2026262%20ASIL%20D-red?style=flat-square)](https://www.iso.org/standard/68383.html)
+[![Patent](https://img.shields.io/badge/Patent-JP%202025--167440-purple?style=flat-square)](https://www.j-platpat.inpit.go.jp/)
 
-## Project Overview
-This repository hosts the **ISO 26262 Safety Framework** and technical implementation for the 2026 research: *"A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis"*.
+> **Nick Barua & Masahito Hitosugi** — Department of Legal Medicine, Shiga University of Medical Science, Japan
 
-Standard ADAS systems yield a True Positive Rate (TPR) of only **21.4%** for detecting pedestrians lying on the road under night conditions. The AFODS framework addresses this **73.3 percentage-point (pp)** classification gap, achieving **95.6–98.2% TPR** in simulation.
+---
 
-## 🚀 Key Research Findings (N=100,000 Monte Carlo Analysis)
-* **Baseline Fatality Risk (No ADAS):** 66.2% MC Mean (95% CI: 21.6–82.3%).
-* **AFODS Fatality Risk (Night/Rain):** 0.7% MC Mean (95% CI: 0.0–3.7%).
-* **Mean System Latency:** 46.5 ms (SD 4.1 ms).
-* **Safety Gain:** Projected reduction in fatal injury probability from 66.2% (MC Mean) to 0.7% under AFODS.
-* **ASIL D Compliance:** Hazard Analysis and Risk Assessment (HARA) identifying the pedestrian run-over hazard as **ASIL D** — the highest safety-critical tier.
+## 🔑 Key Results at a Glance
 
-## 📊 Main Manuscript Figures
-* **Figure 1: AFODS Functional Architecture.** Multi-modal sensor fusion (Thermal IR + NIR) with a SHAP-based explainability audit trail.
-* **Figure 2: AFODS Translational Validation Pipeline.** Strategic roadmap for migrating the framework from simulation to real-world regulatory integration.
-* **Figure S3: Injury Risk Curve.** Continuous mapping of HIC to fatal injury probability ($P(AIS \geq 5)$).
+| Scenario | TPR | P(AIS ≥ 5) Fatal Head Injury |
+|---|---|---|
+| No ADAS (baseline) | 21.4% | **66.2%** |
+| Monocular RGB | 34.7% | 41.6% |
+| **AFODS Night/Rain** | **89.4%** | **0.7%** |
+| **AFODS Daytime** | **98.2%** | **≈ 0%** |
 
-## 🔢 Mathematical Foundation
-The repository implements the three-stage injury-risk model:
-1.  **Kinematics:** $v_{impact} = \max(0, v_0 - a \cdot (t_{avail} - t_d))$
-2.  **Biomechanics:** $HIC = k \cdot v_{impact}^{2.5}$ (where $k \approx 4.8$).
-3.  **Clinical Risk:** $P(AIS \geq 5) = \frac{1}{1 + \exp(-(\alpha + \beta \cdot \ln HIC))}$
-    * *Parameters (Adult 50th-percentile male):* $\alpha = -17.72, \beta = 2.32$.
+> AFODS achieves a **76.8 percentage-point improvement** over the monocular RGB baseline (p < 0.001, McNemar's test) and projects a **99%+ reduction** in estimated fatal head-injury probability under worst-case night/rain conditions.
 
-## 📦 Technical Assets (v1.2.0)
-* **AFODS_Supplementary_Analysis.ipynb:** Complete Python notebook containing the Equation 1–3 logic, Monte Carlo uncertainty propagation, and plot-generation scripts.
-* **High-Resolution Figures:** Standalone PNG versions of all manuscript and supplementary figures (Figure 1, 2, S1, S2, S3).
+---
 
-## 📝 Citations
-**Primary 2026 Study (In Submission):**
-Barua, N., & Hitosugi, M. (2026). *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis*. **Vehicles** (In Submission).
+## 📋 Overview
 
-**Baseline 2025 Study:**
-Barua, N., & Hitosugi, M. (2025). *Advanced Multi-Modal Sensor Fusion System for Detecting Falling Humans*. **Vehicles**, 7(4), 149. https://doi.org/10.3390/vehicles7040149
+Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a **33% fatality rate** when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only **21.4% TPR** at night — a 73.3 percentage-point safety gap that no current regulatory test protocol addresses.
 
-## ⚖️ Patent Disclosure
-AFODS technology is the subject of **Japanese Patent Application No. 2025-167440** (Filing Date: 3 October 2025).
+**AFODS** closes this gap through four-layer multi-modal AI fusion:
+
+- **Layer 1 — Spatial Detection:** YOLOv7-Tiny retrained on prone-posture annotations, fusing LWIR thermal + NIR stereo at 26 fps on embedded automotive hardware (NVIDIA Jetson AGX Orin)
+- **Layer 2 — Predictive Kinematics:** RNN + Kalman filter tracking pre-fall trajectory anomalies 0.3–0.8 s before ground contact
+- **Layer 3 — Acoustic Verification:** MFCC-based classification distinguishing active human falls from road debris (80–250 Hz impact transient)
+- **Layer 4 — Explainability:** SHAP per-detection audit trail for forensic reconstruction and regulatory transparency
+
+**Three original contributions beyond prior detection evaluation [Barua & Hitosugi, 2025]:**
+1. A three-stage quantitative injury-risk model linking detection latency → HIC → P(AIS ≥ 5)
+2. A formal ISO 26262 HARA classifying the pedestrian run-over hazard up to **ASIL D**
+3. A medicolegal SHAP audit framework for forensic reconstruction
+
+---
+
+## 🏗 System Architecture
+
+![AFODS Architecture](Figure_1_Architecture_png.png)
+
+*LWIR thermal (42.3% SHAP) + NIR silhouette (31.1%) + MFCC acoustic (14.8%) + RNN trajectory (11.8%) → AEB actuation + forensic audit log + V2X broadcast.*
+
+---
+
+## 📊 Graphical Abstract
+
+![Graphical Abstract](GA.png)
+
+---
+
+## 🔬 Injury Risk Model
+
+The three-stage model translates detection latency into clinical outcome:
