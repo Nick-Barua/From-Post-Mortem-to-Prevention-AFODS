@@ -1,175 +1,159 @@
-# 🚨 AFODS — Advanced Falling Object Detection System
+# From Post-Mortem to Prevention: A Multi-Modal AI System for Detecting Pedestrians Lying on the Road
 
-**Multi-Modal AI for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Reduction**
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20035268.svg)](https://doi.org/10.5281/zenodo.20035268)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Vehicles 2026](https://img.shields.io/badge/Journal-Vehicles%202026-green)](https://www.mdpi.com/journal/vehicles)
+[![ASIL D](https://img.shields.io/badge/ISO%2026262-ASIL%20D-red)](https://www.iso.org/standard/68383.html)
 
-[![Paper](https://img.shields.io/badge/Paper-MDPI%20Vehicles-blue?style=flat-square)](https://www.mdpi.com/journal/vehicles)
-[![Zenodo](https://img.shields.io/badge/Data-Zenodo%2010.5281%2Fzenodo.20035268-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20035268)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![ISO 26262](https://img.shields.io/badge/Safety-ISO%2026262%20ASIL%20D-red?style=flat-square)](https://www.iso.org/standard/68383.html)
-[![Patent](https://img.shields.io/badge/Patent-JP%202025--167440-purple?style=flat-square)](https://www.j-platpat.inpit.go.jp/)
+**Nick Barua¹ · Masahito Hitosugi¹**
 
-> **Nick Barua & Masahito Hitosugi** — Department of Legal Medicine, Shiga University of Medical Science, Japan
+¹ Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, Japan
 
----
-
-## 🔑 Key Results at a Glance
-
-| Scenario | TPR | P(AIS ≥ 5) Fatal Head Injury |
-|---|---|---|
-| No ADAS (baseline) | 21.4% | **66.2%** |
-| Monocular RGB | 34.7% | 41.6% |
-| **AFODS Night/Rain** | **89.4%** | **0.7%** |
-| **AFODS Daytime** | **98.2%** | **≈ 0%** |
-
-> AFODS achieves a **76.8 percentage-point improvement** over the monocular RGB baseline (p < 0.001, McNemar's test) and projects a **99%+ reduction** in estimated fatal head-injury probability under worst-case night/rain conditions.
+> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20035268)
 
 ---
 
-## 📋 Overview
-
-Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a **33% fatality rate** when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only **21.4% TPR** at night — a 73.3 percentage-point safety gap that no current regulatory test protocol addresses.
-
-**AFODS** closes this gap through four-layer multi-modal AI fusion:
-
-- **Layer 1 — Spatial Detection:** YOLOv7-Tiny retrained on prone-posture annotations, fusing LWIR thermal + NIR stereo at 26 fps on embedded automotive hardware (NVIDIA Jetson AGX Orin)
-- **Layer 2 — Predictive Kinematics:** RNN + Kalman filter tracking pre-fall trajectory anomalies 0.3–0.8 s before ground contact
-- **Layer 3 — Acoustic Verification:** MFCC-based classification distinguishing active human falls from road debris (80–250 Hz impact transient)
-- **Layer 4 — Explainability:** SHAP per-detection audit trail for forensic reconstruction and regulatory transparency
-
-**Three original contributions beyond prior detection evaluation [Barua & Hitosugi, 2025]:**
-1. A three-stage quantitative injury-risk model linking detection latency → HIC → P(AIS ≥ 5)
-2. A formal ISO 26262 HARA classifying the pedestrian run-over hazard up to **ASIL D**
-3. A medicolegal SHAP audit framework for forensic reconstruction
-
----
-
-## 🏗 System Architecture
-
-![AFODS Architecture](Figure_1_Architecture.png.png)
-
-*LWIR thermal (42.3% SHAP) + NIR silhouette (31.1%) + MFCC acoustic (14.8%) + RNN trajectory (11.8%) → AEB actuation + forensic audit log + V2X broadcast.*
-
----
-
-## 📊 Graphical Abstract
+## Graphical Abstract
 
 ![Graphical Abstract](GA.png)
 
 ---
 
-## 🔬 Injury Risk Model
+## Overview
 
-The three-stage model translates detection latency into clinical outcome:
+This repository archives the ISO 26262 safety framework, reproducible analysis notebook, and all manuscript figures for the 2026 *Vehicles* submission listed above.
 
-Stage 1:  v_impact = max(0, v₀ − a · (t_avail − t_d))    [kinematic braking]
-Stage 2:  HIC = k · v_impact^2.5    k ≈ 4.8 (THUMS-calibrated, prone posture)
-Stage 3:  P(AIS≥5) = 1 / (1 + exp(−(α + β · ln(HIC))))  α=−17.72, β=2.32
+Pedestrians lying on the road — collapsed through medical emergency, intoxication, or displacement following a prior collision — represent a disproportionately lethal and systematically underdetected category in road traffic safety. Forensic database analyses derived from Japan's national police records document a **fatality rate of 33.0%** for collisions involving pedestrians in this posture, more than double the rate for upright pedestrian collisions. Standard Advanced Driver-Assistance Systems (ADAS) yield a **True Positive Rate (TPR) of only 21.4%** under night conditions for this posture — a classification gap of **73.3 percentage points**.
 
-Monte Carlo uncertainty propagation (N = 100,000; ±10% k, ±0.5 m/s² braking, ±15% latency) confirms all results are robust across the full parameter uncertainty range.
-
-**Figure S1 — Monte Carlo P(AIS ≥ 5) distributions across all four detection scenarios:**
-
-![Monte Carlo Uncertainty Propagation](Fig-S1.jpg)
-
-**Figure S2 — Tornado sensitivity plot (one-way sensitivity of P(AIS ≥ 5) to model inputs):**
-
-![Tornado Sensitivity Plot](Fig-S2.jpg)
+The **Advanced Falling Object Detection System (AFODS)** addresses this gap through multi-modal sensor fusion, achieving **95.6–98.2% TPR** across environmental conditions in simulation. This repository constitutes the companion code and data archive for the three original contributions of the 2026 paper: a formal ISO 26262 Hazard Analysis and Risk Assessment (HARA), a three-stage quantitative injury-risk model, and a medicolegal SHAP interpretability framework.
 
 ---
 
-## 🗂 Repository Structure
+## Key Findings
 
-AFODS/
-├── README.md
-├── LICENSE
-├── CITATION.cff
-├── AFODS_manuscript.docx
-├── AFODS_Supplementary_Analysis.ipynb
-├── GA.png
-├── Figure_1_Architecture.png.png
-├── Figure_2_AFODS_ Translational_ Validation_ Pipeline.png.png
-├── Fig-S1.jpg
-└── Fig-S2.jpg
+| Metric | Value |
+|--------|-------|
+| Daytime TPR (AFODS) | **98.2%** (95% CI: 97.4–98.8%) |
+| Night / dry TPR (AFODS) | **95.6%** (95% CI: 94.3–96.7%) |
+| Night / rain TPR (AFODS) | **89.4%** (95% CI: 87.2–91.3%) |
+| Improvement vs. monocular RGB baseline | **+76.8 pp** (*p* < 0.001, McNemar's test) |
+| AUC | **0.981** (95% CI: 0.976–0.985) |
+| Mean end-to-end latency | **46.5 ms** (SD 4.1 ms) |
+| ISO 26262 ASIL classification | **ASIL D** (urban night; post-primary collision) |
 
----
+### Monte Carlo Uncertainty Analysis (*N* = 100,000 iterations)
 
-## 🚀 Reproducing the Analysis
-
-```bash
-git clone https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS.git
-cd From-Post-Mortem-to-Prevention-AFODS
-pip install numpy scipy matplotlib pandas jupyter
-jupyter notebook AFODS_Supplementary_Analysis.ipynb
-```
-
-All scripts, parameters, and random seeds archived at:
-**[https://doi.org/10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20035268)**
+| Scenario | P(AIS ≥ 5) MC Mean | 95% Credible Interval |
+|----------|--------------------|-----------------------|
+| No ADAS (full-speed impact, 50 km/h) | **66.2%** | 21.6–82.3% |
+| Monocular RGB baseline | **41.6%** | 4.9–78.0% |
+| AFODS — worst case (night/rain) | **0.7%** | 0.0–3.7% |
+| AFODS — daytime | **≈ 0%** | — |
 
 ---
 
-## 🗺 Translational Validation Roadmap
+## Three-Stage Injury-Risk Model
 
-![Validation Pipeline](Figure_2_Translational_Pipeline.png)
+The paper introduces an explicit quantitative linkage between system detection latency and clinical outcome via three sequential equations:
 
-| Phase | Stage | Status |
-|---|---|---|
-| 1 | Simulation & Algorithm (present work) | ✅ Complete |
-| 2 | Hardware-in-the-Loop (automotive-grade embedded, 38–55 ms) | 🔲 Planned |
-| 3 | Proving-Ground ATD Validation (biofidelic, instrumented) | 🔲 Planned |
-| 4 | Prospective Field Validation (domain shift & FPR quantification) | 🔲 Planned |
-| 5 | Regulatory Integration (prone pedestrian AEB protocol amendment) | 🔲 Planned |
+**Stage 1 — Kinematics:**
+
+$$v_{\text{impact}} = \max\!\left(0,\; v_0 - a \cdot (t_{\text{avail}} - t_d)\right)$$
+
+**Stage 2 — Biomechanics (THUMS-calibrated):**
+
+$$\text{HIC} = k \cdot v_{\text{impact}}^{2.5} \qquad (k \approx 4.8)$$
+
+**Stage 3 — Clinical Risk (Mertz et al., 1997):**
+
+$$P(\text{AIS} \geq 5) = \frac{1}{1 + \exp(-\alpha + \beta \cdot \ln \text{HIC})}$$
+
+*Parameters (adult 50th-percentile male):* α = −17.72, β = 2.32.
 
 ---
 
-## ⚖️ ISO 26262 Safety Classification
+## ISO 26262 HARA Summary
 
-| Scenario | Severity | Exposure | Controllability | ASIL |
-|---|---|---|---|---|
+| Scenario | S | E | C | ASIL |
+|----------|---|---|---|------|
+| Urban road, daytime | S3 | E3 | C2 | **C** |
 | Urban road, night | S3 | E3 | C3 | **D** |
-| Urban road, daytime | S3 | E3 | C2 | C |
-| High-speed road, night | S3 | E2 | C3 | C |
-| Post-primary collision | S3 | E3 | C3 | **D** |
+| High-speed road, night | S3 | E2 | C3 | **C** |
+| Post-primary collision, multi-vehicle | S3 | E3 | C3 | **D** |
+
+*S = Severity; E = Exposure; C = Controllability. Determined per ISO 26262-3:2018, Annex B.*
 
 ---
 
-## 📄 Citation
+## Repository Contents
 
-```bibtex
-@article{barua2026afods,
-  title   = {A Multi-Modal AI System for Detecting Pedestrians Lying on the Road:
-             Simulation-Based Safety and Injury Risk Analysis},
-  author  = {Barua, Nick and Hitosugi, Masahito},
-  journal = {Vehicles},
-  publisher = {MDPI},
-  year    = {2026},
-  note    = {Under review},
-  doi     = {10.5281/zenodo.20035268}
-}
-```
-
----
-
-## 🔗 Related Work
-
-- **Barua & Hitosugi (2025)** — AFODS detection performance (320 simulation trials): [Advanced Multi-Modal Sensor Fusion System for Detecting Falling Humans: Quantitative Evaluation for Enhanced Vehicle Safety](https://www.mdpi.com/2624-8921/7/4/149)
-- **Barua & Hitosugi (2026)** — Physics-grounded kinematic reconstruction: *Sensors, MDPI — Under Review*
+| File | Description |
+|------|-------------|
+| `AFODS_Supplementary_Analysis.ipynb` | Reproducible Python notebook: Equations 1–3, Monte Carlo propagation (*N* = 100,000), and all plot-generation scripts |
+| `Figure_1.png` | AFODS Multi-Modal Functional Architecture with SHAP feature attribution panel |
+| `Figure_2.png` | AFODS Translational Validation Pipeline |
+| `Figure_S1.png` | Monte Carlo uncertainty propagation — P(AIS ≥ 5) distributions across four detection scenarios |
+| `Figure_S2.png` | Tornado plot — one-way sensitivity of P(AIS ≥ 5) to primary model inputs |
+| `Figure_S3.png` | Injury risk curve — continuous P(AIS ≥ 5) as a function of HIC with AFODS operating points overlaid |
+| `GA.png` | Graphical abstract |
+| `CITATION.cff` | Machine-readable citation metadata |
+| `LICENSE` | Apache-2.0 |
 
 ---
 
-## 📜 License & Patent
+## Manuscript Figures
 
-Released under the [MIT License](LICENSE).
+### Figure 1 — AFODS Functional Architecture
+![Figure 1](Figure_1.png)
+*Multi-modal sensor fusion (LWIR thermal + NIR + ultrasonic) across four processing layers. Lower panel: mean SHAP feature contributions across positive detections.*
 
-**Patent:** Japanese Patent Application No. 2025-167440 (filed 3 October 2025).
+### Figure 2 — Translational Validation Pipeline
+![Figure 2](Figure_2.png)
+*Roadmap from current simulation-based feasibility through hardware-in-the-loop testing, instrumented ATD proving-ground validation, and regulatory extension.*
+
+### Figure S3 — Injury Risk Curve
+![Figure S3](Figure_S3.png)
+*Continuous mapping of HIC to P(AIS ≥ 5) with all four AFODS operating points and 95% Monte Carlo credible-interval error bars overlaid. Standard regulatory HIC thresholds (HIC 1000, HIC 1500) are indicated.*
 
 ---
 
-## 📬 Contact
+## Archived Supplementary Materials
 
-**Nick Barua** — s.nick.barua@gmail.com  
-**Masahito Hitosugi** — hitosugi@belle.shiga-med.ac.jp  
-Department of Legal Medicine, Shiga University of Medical Science, Japan
+All supplementary materials are openly archived on Zenodo:
+
+> **DOI: [10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20035268)**
+
+Archived assets include: `AFODS_Supplementary_Analysis.ipynb` (Equations 1–3 logic and plot scripts), and high-resolution versions of Figures S1, S2, and S3.
 
 ---
 
-*No external funding. No human participants. Simulation-based study using pre-existing anonymised forensic database data.*
+## Citation
+
+### Primary 2026 Study *(In Submission)*
+
+Barua, N., & Hitosugi, M. (2026). A Multi-Modal AI System for Detecting
+Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk
+Analysis. Vehicles (In Submission).
+https://doi.org/10.5281/zenodo.20035268
+
+### Baseline 2025 Study
+Barua, N., & Hitosugi, M. (2025). Advanced Multi-Modal Sensor Fusion
+System for Detecting Falling Humans: Quantitative Evaluation for Enhanced
+Vehicle Safety. Vehicles, 7(4), 149.
+https://doi.org/10.3390/vehicles7040149
+
+Or use the `CITATION.cff` file for automatic citation export via GitHub.
+
+---
+
+## Conflict of Interest
+
+N.B. declares a filed patent — Japanese Patent Application No. 2025-167440 (filed 3 October 2025) — on the AFODS technology described in this paper. M.H. declares no conflicts of interest.
+
+---
+
+## License
+
+This repository is released under the [Apache-2.0 License](LICENSE).
+
+All simulation data and parameters are derived from the manuscript text. No original human participant data were collected. All performance figures are simulation-based; prototype validation on real-world hardware is required before deployment claims can be made.
