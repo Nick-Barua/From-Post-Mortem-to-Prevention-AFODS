@@ -8,7 +8,7 @@
 **Nick Barua & Masahito Hitosugi**  
 Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, Japan
 
-> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20116244)
+> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20116244](https://doi.org/10.5281/zenodo.20116244)
 
 ---
 
