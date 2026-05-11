@@ -1,6 +1,6 @@
 # From Post-Mortem to Prevention: A Multi-Modal AI System for Detecting Pedestrians Lying on the Road
 
-[![DOI](https://img.shields.io/badge/Data-Zenodo%2010.5281%2Fzenodo.20041467-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20041467)
+[![DOI](https://img.shields.io/badge/Data-Zenodo%2010.5281%2Fzenodo.20116244-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20116244)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
 [![Safety: ISO 26262 ASIL D](https://img.shields.io/badge/Safety-ISO%2026262%20ASIL%20D-red?style=flat-square)](https://www.iso.org/standard/68383.html)
 [![Patent](https://img.shields.io/badge/Patent-JP%202025--167440-purple?style=flat-square)](https://www.j-platpat.inpit.go.jp/)
@@ -8,7 +8,7 @@
 **Nick Barua & Masahito Hitosugi**  
 Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, Japan
 
-> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20041467)
+> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20035268](https://doi.org/10.5281/zenodo.20116244)
 
 ---
 
@@ -172,7 +172,7 @@ All scripts, parameters, and random seeds are archived at: **<https://doi.org/10
   author = {Barua, Nick and Hitosugi, Masahito},
   year   = {2026},
   note   = {Manuscript in preparation for submission},
-  doi    = {10.5281/zenodo.20041467}
+  doi    = {10.5281/zenodo.20116244}
 }
 ```
 
