@@ -1,6 +1,6 @@
 # From Post-Mortem to Prevention: A Multi-Modal AI System for Detecting Pedestrians Lying on the Road
 
-[![DOI](https://img.shields.io/badge/Data-Zenodo%2010.5281%2Fzenodo.20116244-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20116244)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20116244-blue?style=flat-square)](https://doi.org/10.5281/zenodo.20116244)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
 [![Safety: ISO 26262 ASIL D](https://img.shields.io/badge/Safety-ISO%2026262%20ASIL%20D-red?style=flat-square)](https://www.iso.org/standard/68383.html)
 [![Patent](https://img.shields.io/badge/Patent-JP%202025--167440-purple?style=flat-square)](https://www.j-platpat.inpit.go.jp/)
