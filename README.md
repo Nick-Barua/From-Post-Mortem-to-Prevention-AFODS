@@ -8,7 +8,7 @@
 **Nick Barua & Masahito Hitosugi**  
 Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, Japan
 
-> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* **Vehicles** *(In Submission).* Archival DOI: [10.5281/zenodo.20116244](https://doi.org/10.5281/zenodo.20116244)
+> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis. Vehicles (Under Review). Archival DOI: 10.5281/zenodo.20116244
 
 ---
 
@@ -157,8 +157,7 @@ pip install numpy scipy matplotlib pandas jupyter
 jupyter notebook AFODS_Supplementary_Analysis.ipynb
 ```
 
-All scripts, parameters, and random seeds are archived at: **<https://doi.org/10.5281/zenodo.20035268>**
-
+All scripts, parameters, and random seeds are archived at: https://doi.org/10.5281/zenodo.20116244
 ---
 
 ## Citation
@@ -171,7 +170,7 @@ All scripts, parameters, and random seeds are archived at: **<https://doi.org/10
             Simulation-Based Safety and Injury Risk Analysis},
   author = {Barua, Nick and Hitosugi, Masahito},
   year   = {2026},
-  note   = {Manuscript in preparation for submission},
+  note   = {Under Review at Vehicles (MDPI)},
   doi    = {10.5281/zenodo.20116244}
 }
 ```
