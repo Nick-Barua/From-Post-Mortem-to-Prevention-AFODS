@@ -5,10 +5,10 @@
 [![Safety: ISO 26262 ASIL D](https://img.shields.io/badge/Safety-ISO%2026262%20ASIL%20D-red?style=flat-square)](https://www.iso.org/standard/68383.html)
 [![Patent](https://img.shields.io/badge/Patent-JP%202025--167440-purple?style=flat-square)](https://www.j-platpat.inpit.go.jp/)
 
-**Nick Barua & Masahito Hitosugi**  
+**Nick Barua & Masahito Hitosugi**
 Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, Japan
 
-> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis. Vehicles (Under Review). Archival DOI: 10.5281/zenodo.20116244
+> **Barua, N., & Hitosugi, M. (2026).** *A Multi-Modal AI System for Detecting Pedestrians Lying on the Road: Simulation-Based Safety and Injury Risk Analysis.* Vehicles (Under Review). Archival DOI: 10.5281/zenodo.20116244
 
 ---
 
@@ -24,9 +24,9 @@ Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxic
 
 The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving **95.6–98.2% TPR** across environmental conditions in simulation. This repository is the companion archive for the three original contributions of the 2026 paper:
 
-1. A three-stage quantitative injury-risk model translating detection latency into Head Injury Criterion (HIC) and fatal injury probability P(AIS ≥ 5)
-2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to **ASIL D**
-3. A medicolegal SHAP interpretability framework for post-incident forensic reconstruction
+1. A three-stage quantitative injury-risk model translating detection latency into Head Injury Criterion (HIC) and estimated fatal injury probability P(AIS ≥ 5) — all outputs are exploratory estimates pending real-world ATD validation
+2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to **ASIL D**, determined via the deterministic S3 + E4 + C3 lookup under ISO 26262-3:2018 Annex B Table B.1
+3. A medicolegal SHAP interpretability framework for post-incident forensic reconstruction — constituting a potential future contribution to evidentiary frameworks, not a presently demonstrated legal instrument
 
 ---
 
@@ -43,6 +43,8 @@ The **Advanced Falling Object Detection System (AFODS)** closes this gap through
 
 AUC (overall): **0.981** [95% CI: 0.976–0.985]. Improvement over monocular RGB baseline: **+76.8 pp** (*p* < 0.001, McNemar's test with continuity correction).
 
+**Subgroup note:** For the primary clinical scenario (pedestrians already lying on the road prior to vehicle arrival), the acoustic layer (Layer 3) contributes negligibly — detection relies on LWIR thermal + NIR silhouette geometry alone. The effective TPR for this subpopulation corresponds directly to the **LWIR + NIR ablation row: 91.6%**. The aggregate 98.2% figure includes active-fall events that benefit from additional acoustic cues.
+
 ### Injury-Risk Model — Monte Carlo Analysis (*N* = 100,000)
 
 | Scenario | Detection Latency | v_impact (km/h) | P(AIS ≥ 5) MC Mean [95% CI] |
@@ -52,7 +54,7 @@ AUC (overall): **0.981** [95% CI: 0.976–0.985]. Improvement over monocular RGB
 | AFODS — worst case (night/rain) | 0.8 s | 15.4 | **0.7%** [0.0–3.7%] |
 | AFODS — daytime | 0.04 s | 0.0 | **≈ 0%** |
 
-*HIC = k · v²·⁵ (k ≈ 4.8, THUMS-calibrated). P(AIS ≥ 5) per Mertz et al. [1997] logistic model (α = −17.72, β = 2.32). All estimates simulation-derived; prospective real-world validation required.*
+*HIC = k · v²·⁵ (k ≈ 4.8, THUMS-calibrated, prone/supine posture). P(AIS ≥ 5) per Mertz et al. [1997] logistic model (α = −17.72, β = 2.32). All estimates are simulation-derived exploratory projections; prospective real-world ATD validation required.*
 
 ---
 
@@ -66,8 +68,8 @@ AUC (overall): **0.981** [95% CI: 0.976–0.985]. Improvement over monocular RGB
 
 - **Layer 1 — Spatial Detection:** YOLOv7-Tiny retrained on prone-posture annotations; fuses LWIR thermal + NIR stereo input tensors at 26 fps on NVIDIA Jetson AGX Orin (mAP@0.5: 91.3%)
 - **Layer 2 — Predictive Kinematics:** RNN + Kalman filter tracking trajectory anomalies; generates pre-impact alerts 0.3–0.8 s before ground contact
-- **Layer 3 — Acoustic Verification:** MFCC-based classification of active human falls (80–250 Hz impact transient) versus road debris; inactive for pedestrians already lying on the road
-- **Layer 4 — Explainability:** SHAP per-detection feature attribution audit trail for medicolegal forensic reconstruction
+- **Layer 3 — Acoustic Verification:** MFCC-based classification of active human falls (80–250 Hz impact transient) versus road debris; contributes negligibly for pedestrians already lying on the road prior to vehicle arrival
+- **Layer 4 — Explainability:** SHAP per-detection feature attribution audit trail supporting post-incident forensic reconstruction; potential future contribution to medicolegal evidentiary frameworks pending independent legal assessment
 
 ---
 
@@ -85,9 +87,9 @@ $$\text{HIC} = k \cdot v_{\text{impact}}^{2.5} \qquad k \approx 4.8$$
 
 **Stage 3 — Clinical Risk (Mertz et al., 1997):**
 
-$$P(\text{AIS} \geq 5) = \frac{1}{1 + \exp(-\alpha + \beta \cdot \ln \text{HIC})} \qquad \alpha = {-17.72},\ \beta = 2.32$$
+$$P(\text{AIS} \geq 5) = \frac{1}{1 + \exp(-(\alpha + \beta \cdot \ln \text{HIC}))} \qquad \alpha = {-17.72},\ \beta = 2.32$$
 
-Monte Carlo uncertainty propagation (*N* = 100,000; ±10% *k*, ±0.5 m/s² braking deceleration, ±15% latency) confirms all results are robust across the full modelled parameter range.
+Monte Carlo uncertainty propagation (*N* = 100,000; ±10% *k*, ±0.5 m/s² braking deceleration, ±15% latency) confirms all results are robust across the full modelled parameter range. The transferability of the logistic parameters to the prone run-over contact geometry is a modelling assumption requiring prospective ATD validation.
 
 ### Supplementary Figures
 
@@ -123,12 +125,23 @@ Monte Carlo uncertainty propagation (*N* = 100,000; ±10% *k*, ±0.5 m/s² braki
 
 | Scenario | S | E | C | ASIL |
 |----------|---|---|---|------|
-| Urban road, pedestrian lying on road, night | S3 | E3 | C3 | **D** |
 | Urban road, pedestrian lying on road, daytime | S3 | E3 | C2 | **C** |
+| Urban road, pedestrian lying on road, night | S3 | E4 | C3 | **D** |
 | High-speed road, pedestrian lying on road, night | S3 | E2 | C3 | **C** |
-| Post-primary collision, multi-vehicle | S3 | E3 | C3 | **D** |
+| Post-primary collision, multi-vehicle | S3 | E4 | C3 | **D** |
 
-*S = Severity; E = Exposure; C = Controllability. Determined per ISO 26262-3:2018, Annex B. C3 = difficult or uncontrollable; E3 = medium to high probability of exposure.*
+*S = Severity; E = Exposure; C = Controllability. Determined per ISO 26262-3:2018, Annex B Table B.1. The combination S3 + E4 + C3 uniquely and deterministically yields ASIL D. C2 = normally controllable; C3 = difficult or uncontrollable. E2 = low to medium probability (<1% of operating time); E3 = medium to high probability; E4 = high probability (>10% of operating time).*
+
+---
+
+## Terminological Conventions
+
+| Term | Domain | Meaning in this study |
+|------|--------|----------------------|
+| Pedestrians lying on the road | Clinical / epidemiological | Primary operational scenario: individuals already at road level when struck |
+| Non-upright | ADAS / machine vision | Target classification category: postures outside current pedestrian test standards |
+| Prone / supine | Biomechanics | Specific physical configuration of the target body modelled in THUMS simulations |
+| Falling object | Engineering (AFODS acronym only) | Low-profile human form at road level, distinguishing the detection target from upright pedestrians |
 
 ---
 
@@ -158,11 +171,12 @@ jupyter notebook AFODS_Supplementary_Analysis.ipynb
 ```
 
 All scripts, parameters, and random seeds are archived at: https://doi.org/10.5281/zenodo.20116244
+
 ---
 
 ## Citation
 
-### Primary 2026 Study *(In Submission)*
+### Primary 2026 Study *(Under Review)*
 
 ```bibtex
 @misc{barua2026afods,
@@ -206,8 +220,8 @@ Released under the [Apache-2.0 License](LICENSE).
 
 ## Contact
 
-**Nick Barua** — <s.nick.barua@gmail.com>  
-**Masahito Hitosugi** — <hitosugi@belle.shiga-med.ac.jp>  
+**Nick Barua** — s.nick.barua@gmail.com
+**Masahito Hitosugi** — hitosugi@belle.shiga-med.ac.jp
 Department of Legal Medicine, Shiga University of Medical Science, Japan
 
 ---
