@@ -79,21 +79,31 @@ The three-stage model translates detection latency directly into estimated clini
 
 **Stage 1 — Kinematics:**
 
-$v_{\text{impact}} = \max(0,\; v_0 - a \cdot (t_{\text{avail}} - t_d))$   if $t_d < t_{\text{avail}}$
-
-$v_{\text{impact}} = v_0$   if $t_d \geq t_{\text{avail}}$
+$$
+v_{\text{impact}} =
+\begin{cases}
+\max\!\left(0,\; v_0 - a \cdot (t_{\text{avail}} - t_d)\right) & \text{if } t_d < t_{\text{avail}} \\
+v_0 & \text{if } t_d \geq t_{\text{avail}}
+\end{cases}
+$$
 
 **Stage 2 — Biomechanics (THUMS-calibrated, prone posture):**
 
-$$\text{HIC} = k \cdot v_{\text{impact}}^{2.5} \qquad k \approx 4.8$$
+$$
+\text{HIC} = k \cdot v_{\text{impact}}^{2.5}, \quad k \approx 4.8
+$$
 
 **Stage 3 — Clinical Risk (Mertz et al., 1997):**
 
-$$P(\text{AIS} \geq 5) = \frac{1}{1 + \exp(-(\alpha + \beta \cdot \ln \text{HIC}))} \qquad \alpha = {-17.72},\ \beta = 2.32$$
+$$
+P(\text{AIS} \geq 5) = \frac{1}{1 + \exp\!\left(-(\alpha + \beta \cdot \ln \text{HIC})\right)}, \quad \alpha = -17.72,\ \beta = 2.32
+$$
 
-Monte Carlo uncertainty propagation (*N* = 100,000; ±10% *k*, ±0.5 m/s² braking deceleration, ±15% latency) confirms all results are robust across the full modelled parameter range. The transferability of the logistic parameters to the prone run-over contact geometry is a modelling assumption requiring prospective ATD validation.
+Monte Carlo uncertainty propagation (N = 100,000; ±10% k, ±0.5 m/s² braking deceleration, ±15% latency) confirms all results are robust across the full modelled parameter range. The transferability of the logistic parameters to the prone run-over contact geometry is a modelling assumption requiring prospective ATD validation.
 
-### Supplementary Figures
+---
+
+## Supplementary Figures
 
 **Figure S1 — Monte Carlo P(AIS ≥ 5) distributions across all four detection scenarios:**
 
