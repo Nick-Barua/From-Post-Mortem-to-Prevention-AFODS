@@ -22,7 +22,8 @@ Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, 
 
 Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a **fatality rate of 33.0%** when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only **21.4% TPR** under night conditions — a **73.3 percentage-point** classification gap that no current regulatory test protocol addresses.
 
-The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving **95.6–98.2% TPR** across environmental conditions in simulation. (AFODS = Advanced Falling Object Detection System; "falling object" denotes the low-profile human form at road level — see Terminological Conventions below)This repository is the companion archive for the three original contributions of the 2026 paper:
+The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving 95.6–98.2% TPR across environmental conditions in simulation.(AFODS = Advanced Falling Object Detection System; "falling object" denotes the low-profile human form at road level — see Terminological Conventions below)
+This repository is the companion archive for the three original contributions of the 2026 paper:
 
 1. A three-stage quantitative injury-risk model translating detection latency into Head Injury Criterion (HIC) and estimated fatal injury probability P(AIS ≥ 5) — all outputs are exploratory estimates pending real-world ATD validation
 2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to **ASIL D**, determined via the deterministic S3 + E4 + C3 lookup under ISO 26262-3:2018 Annex B Table B.1
@@ -224,9 +225,9 @@ Or use the `CITATION.cff` file for automatic citation export via GitHub.
 
 ## License & Patent
 
-Released under the [Apache-2.0 License](LICENSE).
+Released under the Apache-2.0 License.
 
-**Patent:** Japanese Patent Application No. 2025-167440 (filed 3 October 2025). Patent: Japanese Patent Application No. 2025-167440 (filed 3 October 2025). N.B. declares this filed patent on the AFODS technology described in this paper.
+Patent: Japanese Patent Application No. 2025-167440 (filed 3 October 2025). N.B. declares this filed patent on the AFODS technology described in this paper.
 
 ---
 
