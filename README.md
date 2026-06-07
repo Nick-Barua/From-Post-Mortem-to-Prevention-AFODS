@@ -20,13 +20,14 @@ Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, 
 
 ## Overview
 
-Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a **fatality rate of 33.0%** when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only **21.4% TPR** under night conditions — a **73.3 percentage-point** classification gap that no current regulatory test protocol addresses.
+Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a fatality rate of 33.0% when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only 21.4% TPR under night conditions — a 73.3 percentage-point classification gap that no current regulatory test protocol addresses.
+The Advanced Falling Object Detection System (AFODS) is a four-layer multi-modal AI architecture integrating Long-Wave Infrared (LWIR) thermal imaging, Near-Infrared (NIR) stereo vision, and ultrasonic/acoustic sensing — processed across spatial detection, predictive kinematics, acoustic verification (MFCC-based), and SHAP explainability layers. Under simulation, AFODS achieves a daytime TPR of 98.2% (95% CI: 97.4–98.8%) and 89.4% under night/rain conditions, representing a statistically significant 76.8 percentage-point improvement over the monocular RGB baseline (McNemar's test, p < 0.001).
+For the primary clinical scenario — pedestrians already lying on the road before vehicle arrival — the acoustic layer contributes negligibly and detection relies on LWIR thermal and NIR silhouette geometry alone. The effective TPR for this subpopulation corresponds directly to the LWIR + NIR ablation configuration: 91.6%. The aggregate 98.2% figure includes active-fall events that benefit from additional acoustic cues.
+Per-detection SHAP (SHapley Additive exPlanations) attribution provides a forensic audit trail consistent with ISO/PAS 8800 algorithmic transparency requirements. This constitutes a potential future contribution to medicolegal evidentiary frameworks — not a presently demonstrated legal instrument. Admissibility under applicable legal standards requires independent legal and judicial assessment.
 
-The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving 95.6–98.2% TPR across environmental conditions in simulation. (AFODS = Advanced Falling Object Detection System; "falling object" denotes the low-profile human form at road level — see Terminological Conventions below)
 This repository is the companion archive for the three original contributions of the 2026 paper:
-
 1. A three-stage quantitative injury-risk model translating detection latency into Head Injury Criterion (HIC) and estimated fatal injury probability P(AIS ≥ 5) — all outputs are exploratory estimates pending real-world ATD validation
-2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to **ASIL D**, determined via the deterministic S3 + E4 + C3 lookup under ISO 26262-3:2018 Annex B Table B.1
+2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to ASIL D, determined via the deterministic S3 + E4 + C3 lookup under ISO 26262-3:2018 Annex B Table B.1
 3. A medicolegal SHAP interpretability framework for post-incident forensic reconstruction — constituting a potential future contribution to evidentiary frameworks, not a presently demonstrated legal instrument
 
 ---
