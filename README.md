@@ -22,7 +22,7 @@ Department of Legal Medicine, Shiga University of Medical Science, Otsu, Shiga, 
 
 Pedestrians lying on the road — collapsed from cardiac arrest, stroke, intoxication, or displaced by a prior collision — face a **fatality rate of 33.0%** when struck by a following vehicle, more than double the rate for upright pedestrian collisions. Yet standard ADAS detects lying pedestrians at only **21.4% TPR** under night conditions — a **73.3 percentage-point** classification gap that no current regulatory test protocol addresses.
 
-The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving **95.6–98.2% TPR** across environmental conditions in simulation. This repository is the companion archive for the three original contributions of the 2026 paper:
+The **Advanced Falling Object Detection System (AFODS)** closes this gap through four-layer multi-modal sensor fusion, achieving **95.6–98.2% TPR** across environmental conditions in simulation. (AFODS = Advanced Falling Object Detection System; "falling object" denotes the low-profile human form at road level — see Terminological Conventions below)This repository is the companion archive for the three original contributions of the 2026 paper:
 
 1. A three-stage quantitative injury-risk model translating detection latency into Head Injury Criterion (HIC) and estimated fatal injury probability P(AIS ≥ 5) — all outputs are exploratory estimates pending real-world ATD validation
 2. A formal ISO 26262 Hazard Analysis and Risk Assessment (HARA) classifying the pedestrian run-over hazard up to **ASIL D**, determined via the deterministic S3 + E4 + C3 lookup under ISO 26262-3:2018 Annex B Table B.1
@@ -79,7 +79,9 @@ The three-stage model translates detection latency directly into estimated clini
 
 **Stage 1 — Kinematics:**
 
-$$v_{\text{impact}} = \max\!\left(0,\; v_0 - a \cdot (t_{\text{avail}} - t_d)\right)$$
+$v_{\text{impact}} = \max(0,\; v_0 - a \cdot (t_{\text{avail}} - t_d))$   if $t_d < t_{\text{avail}}$
+
+$v_{\text{impact}} = v_0$   if $t_d \geq t_{\text{avail}}$
 
 **Stage 2 — Biomechanics (THUMS-calibrated, prone posture):**
 
@@ -166,7 +168,7 @@ Monte Carlo uncertainty propagation (*N* = 100,000; ±10% *k*, ±0.5 m/s² braki
 ```bash
 git clone https://github.com/Nick-Barua/From-Post-Mortem-to-Prevention-AFODS.git
 cd From-Post-Mortem-to-Prevention-AFODS
-pip install numpy scipy matplotlib pandas jupyter
+pip install numpy scipy matplotlib pandas seaborn jupyter
 jupyter notebook AFODS_Supplementary_Analysis.ipynb
 ```
 
@@ -214,7 +216,7 @@ Or use the `CITATION.cff` file for automatic citation export via GitHub.
 
 Released under the [Apache-2.0 License](LICENSE).
 
-**Patent:** Japanese Patent Application No. 2025-167440 (filed 3 October 2025). N.B. declares this filed patent on the AFODS technology described in this paper. M.H. declares no conflicts of interest.
+**Patent:** Japanese Patent Application No. 2025-167440 (filed 3 October 2025). Patent: Japanese Patent Application No. 2025-167440 (filed 3 October 2025). N.B. declares this filed patent on the AFODS technology described in this paper.
 
 ---
 
